@@ -16,6 +16,5 @@ class Solution:
                 total -= roman[s[i]]
             else:
                 total += roman[s[i]]
-
+            
         return total + roman[s[-1]]
-
