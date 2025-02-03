@@ -1,6 +1,7 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefix_sum = {0 : 1}
+        prefix_sum = dict()
+        prefix_sum[0] = 1
         current_sum = 0
         count = 0
 
