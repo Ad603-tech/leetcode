@@ -4,11 +4,12 @@ class Solution:
         right = len(numbers) - 1
 
         while left <= right:
-            current_sum = numbers[left] + numbers[right]
-            if current_sum == target:
+            sum1 = numbers[left] + numbers[right]
+
+            if sum1 == target:
                 return [left + 1, right + 1]
-            if current_sum > target:
+
+            elif sum1 > target:
                 right -= 1
             else:
                 left += 1
-        
