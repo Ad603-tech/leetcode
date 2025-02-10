@@ -1,42 +1,28 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        def first_occ(nums, target):
-            n = len(nums)
-            low = 0
-            high = n - 1
-            fo = -1
 
-            while low <= high:
-                mid = (low + high) // 2
-                if nums[mid] == target:
-                    fo = mid
-                    high = mid - 1
-                elif target >= nums[mid]:
-                    low = mid + 1
+        def binary_search(nums, target, is_search_left):
+            left = 0
+            right = len(nums) - 1
+            idx = -1
+
+            while left <= right:
+                mid = (left + right) // 2
+
+                if nums[mid] > target:
+                    right = mid - 1
+                elif nums[mid] < target:
+                    left = mid + 1
                 else:
-                    high = mid - 1
-                
-            return fo
+                    idx = mid
+                    if is_search_left:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+            return idx
         
-        def last_occ(nums, target):
-            n = len(nums)
-            low = 0
-            high = n - 1
-            lo = -1
+        left = binary_search(nums, target, True)
+        right = binary_search(nums, target, False)
 
-            while low <= high:
-                mid = (low + high) // 2
-                if nums[mid] == target:
-                    lo = mid
-                    low = mid + 1
-                elif target <= nums[mid]:
-                    high = mid - 1
-                else:
-                    low = mid + 1
-            return lo
-        
-        fo = first_occ(nums, target)
-        lo = last_occ(nums, target)
-        return [fo, lo]
+        return [left, right]
 
-                
