@@ -3,19 +3,21 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        j = -1
-        for i in range(n):
-            if nums[i] == 0:
-                j = i
+        left = -1
+        for right in range(len(nums)):
+            if nums[right] == 0:
+                left = right
                 break
-            
-        if j == -1:
-            return nums
 
-        for i in range(j + 1, n):
-            if nums[i] != 0:
-                nums[i], nums[j] = nums[j], nums[i]
-                j += 1
+        if len(nums) == 1:
+            return nums
+        if left == -1:
+            return nums
+            
+        for right in range(left + 1, len(nums)):
+            if nums[right] != 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
         
         return nums
+        
