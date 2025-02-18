@@ -1,22 +1,26 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = defaultdict(list)
-        in_degree = [0] * numCourses
+        indegree = [0] * numCourses
+        adj = [[] for x in range(numCourses)]
 
-        for dest, src in prerequisites:
-            adj[src].append(dest)
-            in_degree[dest] += 1
+        for p in prerequisites:
+            adj[p[1]].append(p[0])
+            indegree[p[0]] += 1
 
-        queue = deque([i for i in range(numCourses) if in_degree[i] == 0])
-        visited_courses = 0
-
+        queue = []
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        visited = 0
         while queue:
-            node = queue.popleft()
-            visited_courses += 1
+            node = queue.pop(0)
+            visited += 1
             for neighbor in adj[node]:
-                in_degree[neighbor] -= 1
-                if in_degree[neighbor] == 0:
+                indegree[neighbor] -= 1
+                if indegree[neighbor] == 0:
                     queue.append(neighbor)
         
-        return visited_courses == numCourses
-        
+        return numCourses == visited
+
+
